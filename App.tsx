@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 function App(): React.JSX.Element {
