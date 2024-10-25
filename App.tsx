@@ -13,8 +13,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
-  View,
 } from 'react-native';
 
 function App(): React.JSX.Element {
