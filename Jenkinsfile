@@ -1,10 +1,7 @@
 pipeline {
     agent any
-    environment {
-        NODE_VERSION = '14' // Set the Node version to use
-    }
     tools {
-        nodejs "${NODE_VERSION}"
+        nodejs 'NodeJS_14' // Use the Node.js installation name configured in Jenkins
     }
     stages {
         stage('Checkout') {
@@ -12,50 +9,59 @@ pipeline {
                 git 'https://github.com/Mohancherukuri/CICD.git'
             }
         }
+        
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'npm install' // Install necessary packages
+                    sh 'npm install' // Installs necessary packages
                 }
             }
         }
+        
         stage('Build') {
             steps {
                 script {
-                    sh 'npm run build' // Build the project
+                    sh 'npm run build' // Builds the project
                 }
             }
         }
+        
         stage('Lint') {
             steps {
                 script {
-                    sh 'npm run lint' // Check for code issues
+                    sh 'npm run lint' // Runs code linting
                 }
             }
         }
+        
         stage('Unit Tests') {
             steps {
                 script {
-                    sh 'npm test' // Run unit tests
+                    sh 'npm test' // Runs unit tests
                 }
             }
         }
+        
         stage('Security Scan') {
             steps {
                 script {
-                    veracode('scan') // Run a security scan
+                    // Assuming Veracode CLI is installed and set up on the Jenkins agent
+                    // Replace 'veracode scan' with your actual Veracode CLI command if needed
+                    sh 'veracode scan' // Adjust this line as per your Veracode configuration
                 }
             }
         }
+        
         stage('Deploy to Dev Environment') {
             steps {
                 script {
                     echo 'Deploying to development environment...' 
-                    // Add deployment commands here
+                    // Add your actual deployment commands or scripts here
                 }
             }
         }
     }
+    
     post {
         always {
             echo 'Pipeline complete'
